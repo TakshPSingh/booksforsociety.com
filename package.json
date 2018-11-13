@@ -1,0 +1,29 @@
+{
+  "name": "booksforsociety.com",
+  "version": "1.0.0",
+  "description": "Website that makes donating books easier",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Taksh Pratap Singh",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "mongodb": "^3.1.9",
+    "mongoose": "^4.5.9",
+    "socket.io": "^2.1.1",
+    "validator": "^10.9.0"
+  },
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.6",
+    "supertest": "^3.3.0"
+  }
+}
