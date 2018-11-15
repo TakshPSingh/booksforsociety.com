@@ -2,6 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const moment = require('moment');
 
 const publicPath = path.join(__dirname, './public');
 
@@ -11,8 +12,8 @@ const {generateLocationMessage} = require('./utils/location-message');
 const {authenticate} = require('./utils/authenticate');
 
 //importing models
-const {User} = require('./models/user');
-const {Driver} = require('./models/driver');
+//const {User} = require('./models/user');
+//const {Driver} = require('./models/driver');
 const {Request} = require('./models/request');
 
 const port = process.env.PORT || 3000;
@@ -24,8 +25,68 @@ var server = http.createServer(app);
 var io = socketIO(server);
 
 io.on('connection', (socket) => {
+	//code to create and save a new driver obj in the DB
 
-	 socket.on('login', (params, callback) => {
+	// var driver = new Driver({
+	// 	code: 99,
+	// 	active: false,
+	// 	vehicle: 'DL10CE2408',
+	// 	name: 'Shailendra',
+	// 	phone: 12345678910
+	// });
+	// driver.save().then(() => {
+	// 	console.log("driver saved");
+	// }).catch((err) => {
+	// 	console.log("driver save failed", err);
+	// })
+
+	//code to create and save a new request obj in the DB
+	// var request = new Request({
+	// 	user_ID: '5bec34cf969f2503c89c83aa',
+	// 	status: 0,
+	// 	driver_code: 99,
+	// 	statusInWords: 'Pending',
+	// 	createdAt: new Date().getTime(),
+	// 	ref: 123,
+	// 	address: {
+	// 		full: 'random house address',
+	// 		location: {
+	// 			latitude: 111,
+	// 			longitude: 222
+	// 		}
+	// 	}
+	// });
+	// request.save().then(() => {
+	// 	console.log("saved test request");
+	// }).catch((err) => {
+	// 	console.log("request save failed");
+	// })
+
+	// code for test driverLocationUpdate
+	// Driver.driverLocationUpdate({code: 99, location: {
+	// 	latitude: 123,
+	// 	longitude: 456
+	// }}).then((driver) => {
+	// 	console.log("Driver:", driver);
+	// }).catch((err) => {
+	// 	console.log("driver location update failed");
+	// });
+
+	Request.findByRef(123).then((request) => {
+		console.log("request found:", request);
+	}).catch((err) => {
+		console.log("Request missing:", err);
+	});
+
+	Request.findByRef(123).then((request) => {
+		return request.locateDriver();
+	}).then((location) => {
+		console.log(location);
+	}).catch((err) => {
+		console.log("error:",err);
+	});
+
+	socket.on('login', (params, callback) => {
 	 	User.findByCredentials(params.email, params.password).then((user) => {
 	 		return user.generateAuthToken();
 	 	}).then((token) => {

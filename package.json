@@ -16,7 +16,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "mongodb": "^3.1.9",
-    "mongoose": "^4.5.9",
+    "mongoose": "^5.3.12",
     "socket.io": "^2.1.1",
     "validator": "^10.9.0"
   },

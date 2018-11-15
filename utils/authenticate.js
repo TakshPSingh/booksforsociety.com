@@ -1,16 +1,13 @@
 var {User} = require('../models/user');
 
 var authenticate = (token) => {
-	User.findByToken(token).then((user) => {
-		if(!user) {
-			return Promise.reject();
-		}
-
-		return {
-			email: user.email,
-			name: user.name
-		};
-	})
+	return new Promise((resolve, reject) => {
+		User.findByToken(token).then((user) => {
+			resolve(user);
+		}).catch((err) => {
+			reject();
+		});
+	});
 };
 
 module.exports = {authenticate};
