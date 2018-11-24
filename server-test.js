@@ -1,8 +1,11 @@
+//All user and driver test PASSING
+//Request test PASSING
+
 const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
-const moment = require('moment');
+//const moment = require('moment');
 
 const publicPath = path.join(__dirname, './public');
 
@@ -12,8 +15,8 @@ const {generateLocationMessage} = require('./utils/location-message');
 const {authenticate} = require('./utils/authenticate');
 
 //importing models
-//const {User} = require('./models/user');
-//const {Driver} = require('./models/driver');
+const {User} = require('./models/user');
+const {Driver} = require('./models/driver');
 const {Request} = require('./models/request');
 
 const port = process.env.PORT || 3000;
@@ -25,6 +28,8 @@ var server = http.createServer(app);
 var io = socketIO(server);
 
 io.on('connection', (socket) => {
+
+	console.log("New user connected");
 	//code to create and save a new driver obj in the DB
 
 	// var driver = new Driver({
@@ -72,19 +77,19 @@ io.on('connection', (socket) => {
 	// 	console.log("driver location update failed");
 	// });
 
-	Request.findByRef(123).then((request) => {
-		console.log("request found:", request);
-	}).catch((err) => {
-		console.log("Request missing:", err);
-	});
+	// Request.findByRef(123).then((request) => {
+	// 	console.log("request found:", request);
+	// }).catch((err) => {
+	// 	console.log("Request missing:", err);
+	// });
 
-	Request.findByRef(123).then((request) => {
-		return request.locateDriver();
-	}).then((location) => {
-		console.log(location);
-	}).catch((err) => {
-		console.log("error:",err);
-	});
+	// Request.findByRef(123).then((request) => {
+	// 	return request.locateDriver();
+	// }).then((location) => {
+	// 	console.log("Location found",location);
+	// }).catch((err) => {
+	// 	console.log("error:",err);
+	// });
 
 	socket.on('login', (params, callback) => {
 	 	User.findByCredentials(params.email, params.password).then((user) => {

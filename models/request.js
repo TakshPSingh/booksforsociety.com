@@ -54,6 +54,7 @@ var RequestSchema = new mongoose.Schema({
 RequestSchema.methods.locateDriver = function() {
 	var request = this;
 	return Driver.findByCode(request.driver_code).then((driver) => {
+		console.log("Driver located", driver)
 		return new Promise((resolve, reject) => {
 			if(!driver.location) {
 				return reject("Driver location not found");
@@ -65,7 +66,7 @@ RequestSchema.methods.locateDriver = function() {
 
 RequestSchema.statics.findByRef = function(ref) {
 	var Request = this;
-	return Request.find({ref}).then((request) => {
+	return Request.findOne({ref}).then((request) => {
 		return new Promise((resolve, reject) => {
 			if(!request) {
 				return reject("Request not found");

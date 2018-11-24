@@ -95,7 +95,7 @@ UserSchema.statics.driverOpen = function (params) {
 	 			driver.save().then(() => {
 	 				console.log("Driver opened");
 	 			}).catch((err) => {
-	 				return Promise.reject(err);
+	 				return Promise.rct(err);
 	 			}); 
 	 		}).catch((e) => {
 	 			console.log("Driver could not be opened", e);
