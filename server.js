@@ -21,7 +21,7 @@ const {Driver} = require('./models/driver');
 const {Request} = require('./models/request');
 const {Total} = require('./models/total');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 var app = express();
 app.use(express.static(publicPath));
