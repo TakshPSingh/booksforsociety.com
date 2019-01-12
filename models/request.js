@@ -26,6 +26,9 @@ var RequestSchema = new mongoose.Schema({
 	ETA: {
 		type: Number
 	},
+	ATA: {
+		type: Number
+	},
 	ref: {
 		type: Number,
 		required: true
@@ -62,6 +65,7 @@ var RequestSchema = new mongoose.Schema({
 
 RequestSchema.methods.completeRequest = function() {
 	var request = this;
+	request.ATA = new Date().getTime();
 	request.status = 2;
 	request.statusInWords = 'Picked up';
 	return request.save();

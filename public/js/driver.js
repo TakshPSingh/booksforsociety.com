@@ -9,7 +9,7 @@ function authenticateDriver() { //misnomer, correct later
 
     setInterval(function() {
         socket.emit('driverRequests', {code: token});
-    }, 45000);
+    }, 30000);
     
     updateLocation();
 }
@@ -27,7 +27,7 @@ function updateLocation() {
                 }
             });
         });
-    }, 15000);
+    }, 10000);
 }
 
 
@@ -64,10 +64,16 @@ function loadRequests(requests) {
         var statusInWords = document.createElement('p');
         statusInWords.textContent = "Status: " + requests[i].statusInWords;
 
+        var navigationLink = document.createElement('a');
+        navigationLink.textContent = "Navigate";
+        navigationLink.href = "https://www.google.com/maps/search/?api=1&query=" + requests[i].address.location.latitude + ',' + requests[i].address.location.longitude;
+        navigationLink.setAttribute('target', '_blank');
+        
         currentRequest.appendChild(ref);
         currentRequest.appendChild(full);
         currentRequest.appendChild(ETA);
         currentRequest.appendChild(statusInWords);
+        currentRequest.appendChild(navigationLink);
 
         currentRequest.style.borderBottom = "medium solid #8F4401";
 	    currentRequest.style.borderTop = "medium solid #8F4401";

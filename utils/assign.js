@@ -10,6 +10,7 @@ var activeDrivers = [];
 var onlineDrivers = [];
 
 var assign = (request, user) => { 
+    var assignedDriver;
     console.log("Entered assign function");
 
     userLocation = request.address.location;
@@ -65,10 +66,14 @@ var assign = (request, user) => {
             return driver.save();
         })
     }).then((driver) => {
+        assignedDriver = driver;
+
         user.requests.push({request: request.ref});
         user.active = true;
         
         return user.save();
+    }).then((user) => {
+        return Promise.resolve(assignedDriver);
     });
 };
 

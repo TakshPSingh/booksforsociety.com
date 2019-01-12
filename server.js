@@ -4,6 +4,9 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY || "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");
 
 const publicPath = path.join(__dirname, './public');
 
@@ -85,7 +88,7 @@ io.on('connection', (socket) => {
 	 });
 
 	 socket.on('newRequest', (params) => {
-		 var user,requestCreated;
+		 var user,requestCreated,assignedDriver;
 
 		 authenticate(params.token).then((tempUser) => {
 			user = tempUser;
@@ -109,8 +112,11 @@ io.on('connection', (socket) => {
 		 }).then((request) => {
 			requestCreated = request;
 			return assign(request,user);
-		 }).then((user) => {
-			return emailAssignmentConfirmation(user);
+		 }).then((driver) => {
+			 assignedDriver = driver;
+			 return Request.findByRef(requestCreated.ref);
+		 }).then((request) => {
+			return emailAssignmentConfirmation(user, request, assignedDriver, sgMail);
 		 }).catch((err) => {
              console.log("err:",err);
 			 socket.emit('newRequestFailed', {err});
@@ -164,22 +170,24 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('pickupDone', (params,callback) => {
-		var ref;
+		var ref,req,dri;
 
 		Driver.findByCode(params.code).then((driver) => {
 			ref = driver.requests[0].request;
 			return driver.findAndRemoveRequest(ref)
 		}).then((driver) => {
+			dri=driver;
 			return Request.findByRef(ref);
 		}).then((request) => {
 			return request.completeRequest();
 		}).then((request) => {
+			req=request;
 			return User.findById(request.user_ID);
 		}).then((user) => {
 			user.active = false;
 			return user.save();
 		}).then((user) => {
-			return emailPickupConfirmation(user);
+			return emailPickupConfirmation(user,req,dri,sgMail);
 		}).then(() => {
 			callback();
 		}).catch((err) => {
