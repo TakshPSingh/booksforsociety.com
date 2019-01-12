@@ -1,0 +1,69 @@
+body{
+	font-size:5vh;
+    height:100%;
+    width:100%;
+    margin:0px;
+    padding:0px;
+    font-family: "futura";
+}
+
+
+input[type=text]{
+	padding: 0.2em;
+	width: 100%;
+	font-size: 0.85em;
+	margin-bottom: 0.5em;
+	border:none;
+}
+
+input[type=submit]{
+    border: none;
+   color: white;
+   text-decoration: none;
+   position: relative;
+      left: 5%;
+      top: 1em;
+   background-color: DodgerBlue;
+   font-size: 0.7em;
+   width: 90%;
+   padding: 0.88em 0.7em 0.885em 0.712em;
+   margin: auto;
+}
+
+button {
+    border: none;
+    color: white;
+    text-decoration: none;
+    position: relative;
+    /* top: 1em; */
+    background-color: DodgerBlue;
+    font-size: 0.7em;
+    width: 90%;
+    padding: 0.88em 0.7em 0.885em 0.712em;
+    align-content: center;
+    margin: auto;
+    display: none;
+}
+
+h2 {
+    color: rgb(29, 94, 158);
+    font-size: 1em;
+    width: 100%;
+    /* font-style: oblique; */
+}
+
+
+h3 {
+    color: red;
+    font-weight: bold;
+    font-size: 1em;
+    width: 100%;
+    /* font-style: oblique; */
+}
+
+#signOut {
+    background-color: red;
+    color: black;
+    margin-bottom: 1em;
+    font-weight: bold;
+}

@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 
+const {Request} = require('./request');
+
 var UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -32,9 +34,13 @@ var UserSchema = new mongoose.Schema({
       }
   }],
   phone: {
-    type: Number,
+    type: String,
     required: true,
     minlength: 10
+  },
+  active: {
+    type: Boolean,
+    default: false
   },
   tokens: [{
     access: {
@@ -67,6 +73,26 @@ UserSchema.methods.generateAuthToken = function () {
   return user.save().then(() => {
     return token;
   });
+};
+
+function findRequestByRef (requestRef) { // helper function, probably redundant if the function below this uses lodash to purify request obj and then use Request Model functions, refactor only if you are bored and have too much time :) 
+  return Request.findByRef(requestRef.request);
+}
+
+UserSchema.methods.findPreviousRequests = function () {
+  var user = this;
+  var requestRefs = user.requests;
+  return Promise.all(requestRefs.map(findRequestByRef));
+};
+
+UserSchema.methods.findCurrentRequest = function () {
+  var user = this;
+  var requestRefs = user.requests;
+  var request = requestRefs[requestRefs.length - 1];
+
+  console.log("request", request);
+  console.log("inside current req function");
+  return Request.findByRef(request.request);
 };
 
 UserSchema.statics.findByToken = function (token) {
@@ -127,6 +153,8 @@ UserSchema.pre('save', function (next) {
     next();
   }
 });
+
+
 
 var User = mongoose.model('User', UserSchema);
 

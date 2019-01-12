@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>
+            BooksforSociety.com - Driver page
+        </title>
+        <link rel="stylesheet" href="styles/driver.css">
+    </head>
+
+    <body>
+        <h2>Driver: booksforsociety.com</h2>
+        <h3 id="message"></h3>
+        <!-- <hr> -->
+        <form id="tokenForm">
+            <input id="tokenField" type="text" placeholder="Enter token here" autofocus required>
+            <input type="submit" value="Submit">
+        </form>
+
+        <button id="signOut">SIGN OUT</button>
+        <button id="completePickup">Complete Pickup</button>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/libs/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+        <script src="js/driver.js"></script>
+    </body>
+</html>

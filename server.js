@@ -9,11 +9,15 @@ var {mongoose} = require('./db/mongoose');
 const {validateEmail, validateName, validatePassword} = require('./utils/validation');
 const {generateLocationMessage} = require('./utils/location-message');
 const {authenticate} = require('./utils/authenticate');
+const {locationServiceable} = require('./utils/location-serviceable');
+const {assign} = require('./utils/assign');
+const {emailPickupConfirmation, emailAssignmentConfirmation} = require('./utils/email');
 
 //importing models
 const {User} = require('./models/user');
 const {Driver} = require('./models/driver');
 const {Request} = require('./models/request');
+const {Total} = require('./models/total');
 
 const port = process.env.PORT || 3000;
 
@@ -24,7 +28,8 @@ var server = http.createServer(app);
 var io = socketIO(server);
 
 io.on('connection', (socket) => {
-
+     console.log("new user connected");
+    
 	 socket.on('login', (params, callback) => {
 	 	User.findByCredentials(params.email, params.password).then((user) => {
 	 		return user.generateAuthToken();
@@ -60,17 +65,125 @@ io.on('connection', (socket) => {
 	 	});
 	 });
 
+	 socket.on('resetPassword', (params) => {
+		authenticate(params.token).then((user) => {
+			user.password = params.password;
+			return user.save();
+		}).catch((err) => {
+			console.log("Err:",err);
+		});
+	 });
+
+	 socket.on('findPreviousRequests', (params) => {
+		 authenticate(params.token).then((user) => {
+			return user.findPreviousRequests();
+		 }).then((previousRequests) => {
+			socket.emit('previousRequests',previousRequests);
+		 });
+	 });
+
+	 socket.on('newRequest', (params) => {
+		 var user,requestCreated;
+
+		 authenticate(params.token).then((tempUser) => {
+			user = tempUser;
+			console.log("user",user); 
+			if(user.active)
+				return Promise.reject("user already has pending requests");	
+			
+			return locationServiceable(params.address.location);
+		 }).then(() => {
+			var request = new Request(params);
+
+			request.status = 0;
+			request.statusInWords = "Unassigned";
+			request.user_ID = user._id;
+			request.createdAt = new Date().getTime();
+
+			return Total.increase(7).then((total) => {
+				request.ref = total.count;
+				return request.save();
+			})
+		 }).then((request) => {
+			requestCreated = request;
+			return assign(request,user);
+		 }).then((user) => {
+			return emailAssignmentConfirmation(user);
+		 }).catch((err) => {
+             console.log("err:",err);
+			 socket.emit('newRequestFailed', {err});
+		 })
+	 });
+
+	 socket.on('getRequestStatus', (params) => {
+		var currentRequest;
+
+		authenticate(params.token).then((user) => {
+			if(!user.active)
+				return Promise.reject("inactive");
+
+			return user.findCurrentRequest();
+		}).then((request) => {
+			currentRequest = request;
+			return Driver.findByCode(request.driver_code);
+		}).then((driver) => {
+			socket.emit('sendRequestStatus', {
+				request: currentRequest, driver
+			});
+		}).catch((err) => {
+			socket.emit(err);
+		});
+	 });
+
 	 socket.on('driverOpen', (params) => {
-	 	Driver.driverOpen(params);
-	 });
+		Driver.driverOpen(params);
+	});
 
-	 socket.on('driverClose', (params) => {
-	 	Driver.driverClose(params);
-	 });
+	socket.on('driverClose', (params, callback) => {
+		Driver.driverClose(params, callback).then(() => {
+			socket.emit('driverClosed');
+		}).catch((err) => {
+			console.log("err:",err);
+		});
+	});
 
-	 socket.on('driverLocationUpdate', (params) => {
-		Driver.updateDriverLocation(params);	 	
-	 });	
+	socket.on('driverLocationUpdate', (params) => {
+	   Driver.driverLocationUpdate(params);	 	
+	});
+
+	socket.on('driverRequests', (params) => { // add phone number if the app flies off and also potentially add name too for better user experience but ony if the app works really really well
+		Driver.findByCode(params.code).then((driver) => {
+			return driver.findRequests();
+		}).then((requests) => {
+			socket.emit('driverRequestsReturning', {requests});
+		}).catch((err) => {
+			console.log("Err:",err);
+		});
+	});
+
+	socket.on('pickupDone', (params,callback) => {
+		var ref;
+
+		Driver.findByCode(params.code).then((driver) => {
+			ref = driver.requests[0].request;
+			return driver.findAndRemoveRequest(ref)
+		}).then((driver) => {
+			return Request.findByRef(ref);
+		}).then((request) => {
+			return request.completeRequest();
+		}).then((request) => {
+			return User.findById(request.user_ID);
+		}).then((user) => {
+			user.active = false;
+			return user.save();
+		}).then((user) => {
+			return emailPickupConfirmation(user);
+		}).then(() => {
+			callback();
+		}).catch((err) => {
+			console.log("Err:", err);
+		}); 
+	});
 });
 
 server.listen(port, () => {
