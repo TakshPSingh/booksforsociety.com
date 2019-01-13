@@ -112,7 +112,7 @@ var emailToken = (user, sgMail) => {
 
         <p>Regards,</p>
         <p>Taksh Pratap Singh</p>
-        <p>Token Master></p>
+        <p>Token Master</p>
         <a href = "https://booksforsociety.com" target="_blank">booksforsociety.com
         </a>
 
