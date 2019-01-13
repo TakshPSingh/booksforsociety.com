@@ -3,7 +3,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>Donate books</title>
-		<link rel="stylesheet" href="styles/index.css">
+		<link rel="stylesheet" href="styles/sign.css">
 	</head>
 	<body>
 		<header>
@@ -17,7 +17,16 @@
 				<span class="nav" id="donate">Track</span>
 				<span class="nav" id="about">About us</span>
 			</nav>
-		</header>
+        </header>
+        
+        <form id="signIn">
+                <h3 id="signInText">Sign in:</h3>
+                <input id="email" type="text" placeholder="Email" autofocus required>
+                <input id="password" type="password" placeholder="Password" autofocus required>
+                <input type="submit" value="Submit">
+        </form>
+
+        <p id="newUserLink">New User? Sign up here.</p>
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="/js/libs/jquery-3.3.1.min.js"></script>

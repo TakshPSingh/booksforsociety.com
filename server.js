@@ -16,7 +16,7 @@ const {generateLocationMessage} = require('./utils/location-message');
 const {authenticate} = require('./utils/authenticate');
 const {locationServiceable} = require('./utils/location-serviceable');
 const {assign} = require('./utils/assign');
-const {emailPickupConfirmation, emailAssignmentConfirmation} = require('./utils/email');
+const {emailPickupConfirmation, emailAssignmentConfirmation, emailToken} = require('./utils/email');
 
 //importing models
 const {User} = require('./models/user');
@@ -69,6 +69,17 @@ io.on('connection', (socket) => {
 	 	}).catch((err) => {
 	 		console.log("User saving failed", err);
 	 	});
+	 });
+
+	 socket.on('forgotPassword', (params, callback) => {
+		User.findOne({email: params.email}).then((user) => {
+			if(!user)
+				return Promise.reject("user not found");
+			return emailToken(user, sgMail);
+		}).catch((err) => {
+			console.log("Err",err);
+			callback();
+		});
 	 });
 
 	 socket.on('resetPassword', (params) => {
@@ -200,3 +211,9 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`Server is up on ${port}`);
 });
+
+var total = new Total({
+	reference: 1,
+	count: 2689
+});
+total.save();

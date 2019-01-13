@@ -89,4 +89,39 @@ var emailAssignmentConfirmation = (user, request, driver, sgMail) => {
     //email user to tell them a driver has been assigned to pickup their books
 };
 
-module.exports = {emailPickupConfirmation, emailAssignmentConfirmation}
+var emailToken = (user, sgMail) => {
+    console.log("emailToken function called");
+    var msg = {
+        to: user.email,
+        from: {
+            name: 'booksforsociety.com',
+            email: 'tokens@booksforsociety.com'
+        },
+        replyTo: 'taksh001@gmail.com',
+        subject: 'Account Recovery Request',
+        html: `<p>Dear ${user.name},</p>
+        
+        <p>We just received a request to recover your account. Please paste the following token in the account recovery page:
+        </p>
+        
+        <p>${user.tokens[0].token}</p>
+        
+        <p>If you did not make this request, do not worry. Your account is safe; no one take control of your account unless they have this token.<p>
+        
+        <p>The contents of this email are sensitive. Do not share this email or token with anyone.</p>
+
+        <p>Regards,</p>
+        <p>Taksh Pratap Singh</p>
+        <p>Token Master></p>
+        <a href = "https://booksforsociety.com" target="_blank">booksforsociety.com
+        </a>
+
+        <p>
+        For any questions or feedback, simply push the reply button and we will be happy to assist you.
+        </p>
+        `
+    };
+    sgMail.send(msg);
+};
+
+module.exports = {emailPickupConfirmation, emailAssignmentConfirmation, emailToken}
