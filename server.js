@@ -6,7 +6,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || "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");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const publicPath = path.join(__dirname, './public');
 
