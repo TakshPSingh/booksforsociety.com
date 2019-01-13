@@ -41,6 +41,7 @@ io.on('connection', (socket) => {
 	 	}).then((token) => {
 	 			return socket.emit('token', token);
 	 	}).catch((err) => {
+			 callback();
 	 		console.log("error", err);
 	 	});
 	 });
