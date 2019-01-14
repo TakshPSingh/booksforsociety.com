@@ -62,14 +62,12 @@ UserSchema.methods.toJSON = function () {
 };
 
 UserSchema.methods.generateAuthToken = function () {
-  console.log("gen auth began");
   var user = this;
   var access = 'auth';
   var token = jwt.sign({_id: user._id.toHexString(), access}, 'fsjfkjsafjksfjksjf').toString();
 
   user.tokens = user.tokens.concat([{access, token}]);
 
-  console.log("between gen auth token");
   return user.save().then(() => {
     return token;
   });
@@ -135,14 +133,13 @@ UserSchema.statics.findByCredentials = function (email, password) {
       });
     });
   });
-
-  console.log("function exited");
 };
 
 UserSchema.pre('save', function (next) {
   var user = this;
 
   if (user.isModified('password')) {
+    console.log("there, again");
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(user.password, salt, (err, hash) => {
         user.password = hash;

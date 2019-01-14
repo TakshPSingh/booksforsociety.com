@@ -105,6 +105,10 @@ input[type=submit]{
     display: none;
 }
 
+.legal {
+    font-size: 0.7em;
+}
+
 @media (max-width: 490px) {
     form {
         width: 94%;

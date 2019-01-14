@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
 	 	});
 	 });
 
-	 socket.on('register', (params) => {
+	 socket.on('register', (params, callback) => {
 	 	var user = new User({
 	 		email: params.email,
 	 		password: params.password,
@@ -67,6 +67,7 @@ io.on('connection', (socket) => {
 	 	}).then((token) => {
 	 		socket.emit('registered', token);
 	 	}).catch((err) => {
+			callback(false);
 	 		console.log("User saving failed", err);
 	 	});
 	 });
