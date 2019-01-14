@@ -20,17 +20,26 @@
         </header>
         
         <form id="signIn">
-                <h3 id="signInText">Sign in:</h3>
-                <input id="email" type="text" placeholder="Email" autofocus required>
-                <input id="password" type="password" placeholder="Password" autofocus required>
-                <input type="submit" value="Submit">
-        </form>
-
-        <p id="newUserLink">New User? Sign up here.</p>
+                <h3 class="formTitle">Sign in</h3>
+                <input id="email" type="email" placeholder="Email" autofocus required>
+                <input id="password" type="password" placeholder="Password" required>
+				<input type="submit" value="Submit">
+				<p id="newUserLink" class="changeAccountFlow">New User? Click here to sign up.</p>
+		</form>
+		
+		<form id="signUp">
+			<h3 class="formTitle">Sign up</h3>
+			<input id="name" type="text" placeholder="Name" autofocus required>
+			<input id="newEmail" type="email" placeholder="Email" required>
+			<input phone="phone" type="tel" placeholder="Phone Number" required>
+			<input id="newPassword" type="password" placeholder="Password" required>
+			<input type="submit" value="Submit">
+			<p id="oldUserLink" class="changeAccountFlow">Or log in instead.</p>
+		</form>
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="/js/libs/jquery-3.3.1.min.js"></script>
-		<script src="js/index.js"></script>
+		<script src="js/sign.js"></script>
 	</body>
 
 </html>

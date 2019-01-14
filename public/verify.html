@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Donate books</title>
+		<link rel="stylesheet" href="styles/sign.css">
+	</head>
+	<body>
+		<header>
+			<div id="flex">
+					<h3 id="banner">booksforsociety.com</h3>
+					<p id="account">Sign in</p>
+			</div>	
+			
+			<nav>
+				<span class="nav" id="donate">Donate</span>
+				<span class="nav" id="donate">Track</span>
+				<span class="nav" id="about">About us</span>
+			</nav>
+        </header>
+
+        <p id="message"></p>
+        
+        <form id="signIn">
+                <h3 class="formTitle">Change Password:</h3>
+                <input id="password" type="password" placeholder="New Password" required>
+                <input id="token" type="password" placeholder="Token" required>
+                <input type="submit" value="Submit">
+		</form>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/js/libs/jquery-3.3.1.min.js"></script>
+        <script src="js/verify.js"></script>
+        
+        <script>
+            
+        </script>
+	</body>
+
+</html>

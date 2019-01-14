@@ -39,9 +39,9 @@ io.on('connection', (socket) => {
 	 	User.findByCredentials(params.email, params.password).then((user) => {
 	 		return user.generateAuthToken();
 	 	}).then((token) => {
-	 			return socket.emit('token', token);
+	 		return socket.emit('token', token);
 	 	}).catch((err) => {
-			 callback();
+			callback();
 	 		console.log("error", err);
 	 	});
 	 });
@@ -82,11 +82,16 @@ io.on('connection', (socket) => {
 		});
 	 });
 
-	 socket.on('resetPassword', (params) => {
+	 socket.on('resetPassword', (params, callback) => {
 		authenticate(params.token).then((user) => {
+			console.log("user", user);
 			user.password = params.password;
 			return user.save();
+		}).then((user) => {
+			console.log("user saved after password reset");
+			callback(true);
 		}).catch((err) => {
+			callback(false);
 			console.log("Err:",err);
 		});
 	 });

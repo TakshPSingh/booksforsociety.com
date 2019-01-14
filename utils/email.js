@@ -101,7 +101,7 @@ var emailToken = (user, sgMail) => {
         subject: 'Account Recovery Request',
         html: `<p>Dear ${user.name},</p>
         
-        <p>We just received a request to recover your account. Please paste the following token in the account recovery page:
+        <p>We just received a request to recover your account. Please paste the following token on <a href="https://booksforsociety.com/verify.html">https://booksforsociety.com/verify.html</a> to reset your password:
         </p>
         
         <p>${user.tokens[0].token}</p>

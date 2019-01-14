@@ -34,7 +34,7 @@ nav {
      font-size: 0.8em;
  }
 
-@media (max-width: 490px) {
+@media (max-width: 468px) {
     body {
         font-size: 3vh;
     }
@@ -63,17 +63,17 @@ form {
     left: 20%;
 }
 
-.formTitle {
+#signInText {
     width: 100%;
+    display: block;
 }
 
-input[type=text],input[type=email],input[type=tel]{
+input[type=text]{
 	padding: 0.2em;
     width: 100%;
 	font-size: 0.85em;
-	margin-bottom: 1em;
-    border:none;
-    height:5vh;
+	margin-bottom: 3.5vh;
+	border:none;
 }
 
 input[type=password]{
@@ -81,43 +81,25 @@ input[type=password]{
     width:100%;
 	font-size: 0.85em;
 	margin-bottom: 1.2em;
-    border:none;
-    height:5vh;
+	border:none;
 }
 
 input[type=submit]{
     border: none;
    color: white;
    text-decoration: none;
-   width: 100%;
+   position: relative;
+   left: 10%;
+   width: 80%;
    background-color: DodgerBlue;
    font-size: 0.7em;
    padding: 0.88em 0.7em 0.885em 0.712em;
    margin: auto;
 }
 
-.changeAccountFlow {
-    color: purple;
-    text-decoration: underline;
-}
-
-#signUp {
-    display: none;
-}
-
-@media (max-width: 490px) {
-    form {
-        width: 94%;
-        left: 3%;
-    }
-
-    input[type=text] {
-        margin-bottom: 0.6em;
-    }
-}
-
-@media  (min-height: 635px) {
-    form {
-        margin: 8.5vh 0 0 0;
+@media (max-width: 468px) {
+    #signInText {
+        width: 80%;
+        left: 10%;
     }
 }
