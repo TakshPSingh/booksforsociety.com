@@ -6,7 +6,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY || "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");
 
 const publicPath = path.join(__dirname, './public');
 
@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 	 	});
 	 });
 
-	 socket.on('checkToken', (params,callback) => {
+	 socket.on('checkToken', (params) => {
 	 authenticate(params.token).then((user) => {
 	 		socket.emit('tokenVerified', user);
 		}).catch((e) => {
@@ -72,14 +72,13 @@ io.on('connection', (socket) => {
 	 	});
 	 });
 
-	 socket.on('forgotPassword', (params, callback) => {
+	 socket.on('forgotPassword', (params) => {
 		User.findOne({email: params.email}).then((user) => {
 			if(!user)
 				return Promise.reject("user not found");
 			return emailToken(user, sgMail);
 		}).catch((err) => {
 			console.log("Err",err);
-			callback();
 		});
 	 });
 
@@ -99,9 +98,13 @@ io.on('connection', (socket) => {
 
 	 socket.on('findPreviousRequests', (params) => {
 		 authenticate(params.token).then((user) => {
+			console.log("user found");
 			return user.findPreviousRequests();
 		 }).then((previousRequests) => {
+			console.log("Previous requests found:",previousRequests);
 			socket.emit('previousRequests',previousRequests);
+		 }).catch((err) => {
+			console.log("Err:",err);
 		 });
 	 });
 
@@ -157,7 +160,7 @@ io.on('connection', (socket) => {
 				request: currentRequest, driver
 			});
 		}).catch((err) => {
-			socket.emit(err);
+			socket.emit("noActiveRequest");
 		});
 	 });
 

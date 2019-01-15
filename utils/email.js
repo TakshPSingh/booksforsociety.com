@@ -21,7 +21,7 @@ var emailPickupConfirmation = (user, request, driver, sgMail) => {
 
         <ul>
             <li>
-                Address: ${request.address.full} (<a href="https://www.google.com/maps/search/?api=1&query=${request.address.location.latitude},${request.address.location.longitude}">map location</a>)
+                Address: ${request.address.full} (<a href="https://www.google.com/maps/search/?api=1&query=${request.address.location.latitude},${request.address.location.longitude}">mapped location</a>)
             </li>
             <li>
                 Pickup expert: ${driver.name}
@@ -68,7 +68,7 @@ var emailAssignmentConfirmation = (user, request, driver, sgMail) => {
         text: "Driver assigned for picking up your books",
         html: `<p>Dear ${user.name},</p>
         
-        <p>We are sending our pickup expert ${driver.name} to your address: ${request.address.full} (<a href="https://www.google.com/maps/search/?api=1&query=${request.address.location.latitude},${request.address.location.longitude}">map location</a>).</p>
+        <p>We are sending our pickup expert ${driver.name} to your address: ${request.address.full} (<a href="https://www.google.com/maps/search/?api=1&query=${request.address.location.latitude},${request.address.location.longitude}">mapped location</a>).</p>
 
         <p>Please keep your books ready at <strong>${timeInWords}</strong>.</p>
         <p>
@@ -101,7 +101,7 @@ var emailToken = (user, sgMail) => {
         subject: 'Account Recovery Request',
         html: `<p>Dear ${user.name},</p>
         
-        <p>We just received a request to recover your account. Please paste the following token on <a href="https://booksforsociety.com/verify.html">https://booksforsociety.com/verify.html</a> to reset your password:
+        <p>We just received a request to recover your account. Please paste the following token on <a href="https://booksforsociety.com/verify.html" target="_blank">https://booksforsociety.com/verify.html</a> to reset your password:
         </p>
         
         <p>${user.tokens[0].token}</p>
@@ -121,7 +121,7 @@ var emailToken = (user, sgMail) => {
         </p>
         `
     };
-    sgMail.send(msg);
+    return sgMail.send(msg);
 };
 
 module.exports = {emailPickupConfirmation, emailAssignmentConfirmation, emailToken}

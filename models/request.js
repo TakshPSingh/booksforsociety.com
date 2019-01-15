@@ -78,6 +78,7 @@ RequestSchema.statics.findByRef = function(ref) {
 			if(!request) {
 				return reject("Request not found");
 			}
+			console.log("Request found");
 			return resolve(request);
 		});
 	});

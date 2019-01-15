@@ -27,6 +27,7 @@
                 <input id="password" type="password" placeholder="Password" required>
 				<input id="signInButton" type="submit" value="Sign In">
 				<p id="newUserLink" class="changeAccountFlow">New User? Click here to sign up.</p>
+				<p id="forgotPasswordLink" class="changeAccountFlow">Forgot Password? Click here.</p>
 		</form>
 		
 		<form id="signUp">
@@ -40,8 +41,15 @@
 			<p class="legal">By signing up, you agree to our terms of services.</p>
 		</form>
 
+		<form id="forgotPassword">
+			<h3 class="formTitle">Retrieve Password</h3>
+			<input id="accountEmail" type="email" placeholder="Email" autofocus required>
+			<input id="forgotPasswordButton" type="submit" value="Retrieve Password">
+		</form>
+
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="/js/libs/jquery-3.3.1.min.js"></script>
+		<script src="js/common.js"></script>
 		<script src="js/sign.js"></script>
 	</body>
 

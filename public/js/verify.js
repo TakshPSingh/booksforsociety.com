@@ -10,7 +10,7 @@ $('#signIn').on('submit', function(e) {
     }, 
     function(changed) {
         if(changed) {
-            $('#message').text("Password was reset successfully. You may login to your account using your new password.");
+            $('#message').text("Your password was reset successfully. You may login to your account using your new password.");
             $('#signIn').hide();
         }
         else

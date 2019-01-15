@@ -1,0 +1,69 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Account Info</title>
+		<link rel="stylesheet" href="styles/account.css">
+	</head>
+	<body>
+		<header>
+			<div id="flex">
+					<h3 id="banner">booksforsociety.com</h3>
+					<p id="account">Sign in</p>
+			</div>	
+			
+			<nav>
+				<span class="nav" id="donate">Donate</span>
+				<span class="nav" id="track">Track</span>
+				<span class="nav" id="about">About us</span>
+			</nav>
+        </header>
+
+        <p id="message" class="center"></p>
+        
+       <div id="accountInfo">
+           <button id="signOut">Sign Out</button>
+
+           <p class="center" style="font-weight:bold;">Your account info:</p>
+
+           <div class="specialAlign">
+                <p class="left">Name:</p>
+                <p id="name" class="right"></p>
+           </div>
+            
+            <div class="specialAlign">
+                <p class="left">Email:</p>
+                <p id="email" class="right"></p>
+           </div>
+            
+           <div class="specialAlign">
+                <p class="left">Phone:</p>
+                <p id="phone" class="right"></p>
+           </div>
+
+           <p id="passwordMessage"></p>
+            <form id="resetPassword">
+                <p style="font-weight:bold;">Reset Password:</p>
+                <input type="password" id="password" placeholder="New password">
+                <input type="submit" id="submit" value="Reset Password">
+            </form>
+
+            <p class="center" id="previousRequestsAnnouncer">Your pickup requests:</p>
+            <p id="requestsMessage" class="center">No donations yet. Why not begin today?</p>
+            <div id="previousRequests">
+
+            </div>
+       </div>
+
+		<script src="/socket.io/socket.io.js"></script>
+          <script src="/js/libs/jquery-3.3.1.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+		<script src="js/common.js"></script>
+        <script src="js/account.js"></script>
+        
+        <script>
+            
+        </script>
+	</body>
+
+</html>

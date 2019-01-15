@@ -45,7 +45,7 @@ socket.on('driverRequestsReturning', function (params) {
 });
 
 function loadRequests(requests) {
-    $("div").remove(); //clears all requests on screen. No optimal, but don't have to fix it right now 
+    $("div").remove(); //clears all requests on screen. Not optimal, but don't have to fix it right now 
         
     console.log("The pending requests are", requests);
     for(var i = 0 ; i < requests.length; ++i) {

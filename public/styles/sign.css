@@ -105,6 +105,15 @@ input[type=submit]{
     display: none;
 }
 
+#forgotPassword {
+    display: none;
+}
+
+#message {
+    width: 100%;
+    text-align: center;
+}
+
 .legal {
     font-size: 0.7em;
 }
