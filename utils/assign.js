@@ -9,7 +9,7 @@ var userLocation;
 var activeDrivers = [];
 var onlineDrivers = [];
 
-var assign = (request, user) => { 
+var assign = (request, user, callback) => { 
     var assignedDriver;
     console.log("Entered assign function");
 
@@ -26,9 +26,11 @@ var assign = (request, user) => {
         }
 
         if (!activeDrivers.length) {
-            if(!onlineDrivers.length)
-                return Promise.reject("Sorry, but we currently have no drivers free at the moment to fulfill your request. Please try again later.");
-            return findLeastETA();
+            if(!onlineDrivers.length) {
+                callback(false, "Sorry, but we have no drivers free at the moment to fulfill your request. Please try again later.");
+                return Promise.reject({code:"007" ,message: "Sorry, but we have no drivers free at the moment to fulfill your request. Please try again later."});
+            }
+            return findLeastETA(callback);
         }
         else
             return Promise.all(activeDrivers.map(calculateETA));
@@ -43,8 +45,10 @@ var assign = (request, user) => {
             }
         }
 
-        if(leastDuration === Number.MAX_SAFE_INTEGER)
-            return Promise.reject("Sorry, but our route optimization systems could not find a way to reach you.");
+        if(leastDuration === Number.MAX_SAFE_INTEGER) {
+            callback(false, "Sorry, but our route optimization systems could not find a way to reach you.");
+            return Promise.reject({code:"007" ,message: "Sorry, but our route optimization systems could not find a way to reach you."});
+        }
         
         var currentTime = new Date().getTime();
         
@@ -93,14 +97,15 @@ function calculateETA (driver) {
     });
 };
 
-function findLeastETA() {
+function findLeastETA(callback) {
     return Promise.all(onlineDrivers.map(findETA)).then((ETAs) => {
         var leastETA = Number.MAX_SAFE_INTEGER;
 
         for(var i = 0 ; i < ETAs.length; ++i)
             leastETA = Math.min(leastETA, ETAs[i]);
         var timeIST = toTimeZone(leastETA, 'Asia/Kolkata');
-        return Promise.reject(`Sorry but we don't have a pickup driver nearby. Please try again at ${timeIST}, our systems indicate that a driver will most probably be available in your area at this time.`);
+        callback(false, `Sorry, but we don't have a pickup driver nearby. Please try again after ${timeIST}, our systems indicate that a driver will most probably be available in your area after this time.`);
+        return Promise.reject({code:"007" ,message: `Sorry, but we don't have a pickup driver nearby. Please try again at ${timeIST}, our systems indicate that a driver will most probably be available in your area at this time.`});
     });
 }
 

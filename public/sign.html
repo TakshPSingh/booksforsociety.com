@@ -14,7 +14,7 @@
 			
 			<nav>
 				<span class="nav" id="donate">Donate</span>
-				<span class="nav" id="donate">Track</span>
+				<span class="nav" id="track">Track</span>
 				<span class="nav" id="about">About us</span>
 			</nav>
 		</header>
@@ -30,12 +30,12 @@
 				<p id="forgotPasswordLink" class="changeAccountFlow">Forgot Password? Click here.</p>
 		</form>
 		
-		<form id="signUp">
+		<form id="signUp" autocomplete="on">
 			<h3 class="formTitle">Sign up</h3>
 			<input id="name" type="text" placeholder="Name" autofocus required>
 			<input id="newEmail" type="email" placeholder="Email" required>
 			<input id="phone" type="tel" placeholder="Phone (min 10 digits)" required>
-			<input id="newPassword" type="password" placeholder="Password" required>
+			<input id="newPassword" type="password" placeholder="Password" required autocomplete="off">
 			<input id="newUserButton" type="submit" value="Sign Up">
 			<p id="oldUserLink" class="changeAccountFlow">Or click here to log in instead.</p>
 			<p class="legal">By signing up, you agree to our terms of services.</p>

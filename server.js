@@ -108,7 +108,7 @@ io.on('connection', (socket) => {
 		 });
 	 });
 
-	 socket.on('newRequest', (params) => {
+	 socket.on('newRequest', (params, callback) => {
 		 var user,requestCreated,assignedDriver;
 
 		 authenticate(params.token).then((tempUser) => {
@@ -132,16 +132,16 @@ io.on('connection', (socket) => {
 			})
 		 }).then((request) => {
 			requestCreated = request;
-			return assign(request,user);
+			return assign(request,user,callback);
 		 }).then((driver) => {
 			 assignedDriver = driver;
 			 return Request.findByRef(requestCreated.ref);
 		 }).then((request) => {
-			return emailAssignmentConfirmation(user, request, assignedDriver, sgMail);
+			 callback(true, "It worked");
+			 return emailAssignmentConfirmation(user, request, assignedDriver, sgMail);
 		 }).catch((err) => {
-             console.log("err:",err);
-			 socket.emit('newRequestFailed', {err});
-		 })
+			 console.log("Err:",err);
+		 });
 	 });
 
 	 socket.on('getRequestStatus', (params) => {

@@ -35,7 +35,7 @@ $('#signIn').on('submit', function(e) {
 		$('#message').text('Authentication failed. Make sure you are entering the correct credentials.');		
 		$('#signInButton').val('Try again').prop('disabled',false);
 	});
-})
+});
 
 socket.on('token', function(tokenFromServer) {
 	token=tokenFromServer;

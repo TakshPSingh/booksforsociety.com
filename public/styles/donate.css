@@ -29,10 +29,10 @@ nav {
     justify-content: space-around;
  }
 
- .nav {
-     color: #808080;
-     font-size: 0.8em;
- }
+.nav {
+    color: #808080;
+    font-size: 0.8em;
+}
 
 @media (max-width: 490px) {
     body {
@@ -52,27 +52,26 @@ nav {
     }
 }
 
-/* ACCOUNT SPECIFIC CSS => */
+/*
+    FORM SPECIFIC CSS BELOW
+*/
 
-#accountInfo {
-    margin: 7.5vh 0 0 0;
+form {
+    margin: 14vh 0 0 0;
     width:60%;
     position: relative;
     left: 20%;
 }
 
-form {
-    margin: 8vh 0 0 0;
-    width:100%;
-    position: relative;
-    left: 0%;
+.formTitle {
+    width: 100%;
 }
 
-input[type=password]{
+input[type=text] {
 	padding: 0.2em;
-    width:100%;
+    width: 100%;
 	font-size: 0.85em;
-	margin-bottom: 1.2em;
+	margin-bottom: 1em;
     border:none;
     height:5vh;
 }
@@ -88,32 +87,7 @@ input[type=submit]{
    margin: auto;
 }
 
-.specialAlign {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin: 0;
-}
-
-.left, .right {
-    margin: 0 0 0.5em 0;
-}
-
-.center {
-    text-align: center;
-}
-
-#passwordMessage {
-    font-style: oblique;
-    margin-bottom: 0.5em;
-    text-align: center;
-}
-
-#previousRequestsAnnouncer {
-    margin: 8vh 0 0 0;
-}
-
-#signOut{
+button {
     border: none;
    color: white;
    text-decoration: none;
@@ -125,52 +99,93 @@ input[type=submit]{
    margin-bottom: 1em;
 }
 
-.table {
-    display:flex;
-    justify-content: space-between;
-    align-items: baseline;
+select {
+    padding: 0.2em;
+    width: 100%;
+	font-size: 0.75em;
+	margin-bottom: 1em;
+    border:none;
+    height:5vh;
 }
 
-.table p {
-    margin: 0.3em;
+.grade, .book {
+    margin: 0.1em 0 0.1em 0;
 }
 
-.table a{
+.bookAnnouncer {
+    margin: 0.5em 0 0.5em 0;
+    font-size: 0.75em;
+}
+
+/* PLACEHOLDER => */
+
+select:required:invalid {
+    color: gray;
+  }
+
+option[value=""][disabled] {
+    display: none;
+}
+
+option {
+    color: black;
+}
+
+/* PLACEHOLDER ENDS HERE */
+
+#message {
     width: 100%;
     text-align: center;
 }
 
-.request {
-    border: medium solid #8F4401;
-    padding: 0 0.15em 0 0.15em;
+.legal {
+    font-size: 0.7em;
 }
 
-.parameter, .content{
-    margin: 0.5em;
-}
+@media (max-width: 490px) {
+    form {
+        width: 94%;
+        left: 3%;
+    }
 
-.ref {
-    font-weight: bold;
-    margin-bottom: 0.5em;
-    text-align: center;
-}
-
-.books {
-    font-size: 0.8em;
-}
-
-/* RESPONSIVE STUFF FOR ACCOUNT INFO */
-
-@media (max-width: 800px) {
-    #accountInfo {
-        width: 90%;
-        left: 5%;
+    input[type=text] {
+        margin-bottom: 0.6em;
     }
 }
 
-@media (max-width: 560px) {
-    #accountInfo {
-        width: 100%;
-        left: 0%;
+@media  (min-height: 635px) {
+    form {
+        margin: 8.5vh 0 0 0;
     }
+}
+
+/* Google Maps => */
+
+#map {
+    margin: 0 0 1em 0;
+    height: 50%;
+    display: none;
+}
+
+.grade:last-of-type {
+    margin-bottom: 1em;
+}
+
+#locationMessage{
+    display: none;
+    margin-top: 0;
+}
+
+.statusMessage {
+    color: purple;
+    display: none;
+    margin-top: 0;
+}
+
+#flowMessage {
+    margin: 14vh 0 0 0;
+    width:60%;
+    position: relative;
+    left: 20%;
+    display: none;
 }

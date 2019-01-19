@@ -28,6 +28,7 @@ socket.on('previousRequests', function(requests) {
         var request = requests[i];
 
         var ETA = moment(requests[i].ETA).format('h:mm a');
+        var date = moment(requests[i].ETA).format('MMM D, Y');
         var ATA = moment(requests[i].ATA).format('h:mm a');
         var mapLink = "https://www.google.com/maps/search/?api=1&query=" + requests[i].address.location.latitude + ',' + requests[i].address.location.longitude;
 
@@ -52,6 +53,11 @@ socket.on('previousRequests', function(requests) {
                 </div>
 
                 <div class="table">
+                    <p class="paramter">Date: </p>
+                    <p class="content">${date}</p>
+                </div>
+
+                <div class="table">
                     <p class="paramter">Promised pickup time: </p>
                     <p class="content">${ETA}</p>
                 </div>
@@ -64,6 +70,28 @@ socket.on('previousRequests', function(requests) {
 
         if(requests[i].ATA) {
             requestHTML += ATAHTML;
+        }
+
+        if(request.books) {
+            requestHTML += `
+                <p class="ref">
+                    Books:
+                </p>
+            `;
+
+            for(var j = 0; j < request.books.length; ++j) {
+                var book = request.books[j];
+                var subject =  book.subject;
+                var grade = book.grade;
+                
+                var bookHTMl = `
+                <div class="table books">
+                    <p class="paramter">Subject: ${subject}</p>
+                    <p class="content">Grade: ${grade}</p>
+                </div>`;
+
+                requestHTML += bookHTMl;
+            }
         }
 
         requestHTML += `</div>`;
