@@ -1,14 +1,16 @@
 const axios = require('axios');
 
-var locationServiceable = (location) => {
+var locationServiceable = (location, callback) => {
     var latitude = location.latitude;
     var longitude = location.longitude;
     
     var geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCk5aSoagjsGq9bHyOFlNKFaI5Evy1wDnY`;
     
     return axios.get(geocodeUrl).then((response) => {
-        if(response.data.status === 'ZERO_RESULTS')
+        if(response.data.status === 'ZERO_RESULTS') {
+            callback(false, "Sorry, but your location is not currently serviceable");
             return Promise.reject("Sorry, but your location is not serviceable");
+        }
         var address = response.data.results[0].address_components;
         
         console.log("Address",address);
@@ -23,6 +25,7 @@ var locationServiceable = (location) => {
         if(Noida)
             return Promise.resolve();
 
+        callback(false, "Sorry, but we currently do not operate outside Noida.");
         return Promise.reject("Sorry, but we currently do not operate outside Noida.");
     });
 };

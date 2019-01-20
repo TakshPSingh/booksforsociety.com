@@ -96,7 +96,7 @@ button {
    font-size: 0.7em;
    padding: 0.88em 0.7em 0.885em 0.712em;
    margin: auto;
-   margin-bottom: 1em;
+   margin-bottom: 0.55em;
 }
 
 select {
@@ -108,8 +108,24 @@ select {
     height:5vh;
 }
 
-.grade, .book {
+.book {
     margin: 0.1em 0 0.1em 0;
+}
+
+.grade {
+    margin: 0.1em 0 0.05em 0;
+}
+
+.book-container {
+    border: thin solid #8F4401;
+    border-bottom-width: 0;
+    padding: 0 0.15em 0 0.15em;
+}
+
+.book-container-last {
+    border: thin solid #8F4401;
+    padding: 0 0.15em 0 0.15em;
+    margin-bottom: 1em;
 }
 
 .bookAnnouncer {
@@ -167,17 +183,13 @@ option {
     display: none;
 }
 
-.grade:last-of-type {
-    margin-bottom: 1em;
-}
-
 #locationMessage{
     display: none;
-    margin-top: 0;
+    margin-top: 0.25em;
 }
 
 .statusMessage {
-    color: purple;
+    color: navy;
     display: none;
     margin-top: 0;
 }

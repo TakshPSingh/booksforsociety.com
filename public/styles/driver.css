@@ -67,3 +67,43 @@ h3 {
     margin-bottom: 1em;
     font-weight: bold;
 }
+
+/* REQUESTS => */
+
+.table {
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.table p {
+    margin: 0.3em;
+}
+
+.table a{
+    width: 100%;
+    text-align: center;
+}
+
+.request {
+    border: medium solid #8F4401;
+    padding: 0 0.15em 0 0.15em;
+}
+
+.parameter, .content{
+    margin: 0.5em;
+}
+
+.ref {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.tel {
+    margin-top: 0.75em;
+}
+
+#completePickup {
+    margin-bottom: 1em;
+}

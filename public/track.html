@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Donate books</title>
+		<link rel="stylesheet" href="styles/track.css">
+	</head>
+	<body>
+		<header>
+			<div id="flex">
+					<h3 id="banner">booksforsociety.com</h3>
+					<p id="account">Sign in</p>
+			</div>	
+			
+			<nav>
+				<span class="nav" id="donate">Donate</span>
+				<span class="nav" id="track">Track</span>
+				<span class="nav" id="about">About us</span>
+			</nav>
+		</header>
+
+        <div id="tracking">
+            <p id="message">Waiting for Google to load scripts...</p>
+            
+            <!-- <p id="message">You have no active requests to track right now. To view previous requests <a href="account.html">click here.</a></p> -->
+            
+            <div id="map"></div>
+            <div id="details"></div>
+        </div>
+
+		<script src="/socket.io/socket.io.js"></script>
+        <script src="/js/libs/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/track.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeWQ43-Yb6_w-DVYpKVndbjV2Q1xE9d_A&callback=beginTracking"
+		 async defer></script>
+	</body>
+
+</html>

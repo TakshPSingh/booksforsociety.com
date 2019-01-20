@@ -18,19 +18,21 @@ socket.on('tokenVerified', function(user) {
 socket.emit('findPreviousRequests', {token:token});
 
 socket.on('previousRequests', function(requests) {
-    if(requests.length === 1)
+    if(!requests.length)
+        $('#requestsMessage').text('No donations yet. Why not begin today?');
+    else if(requests.length === 1)
         $('#requestsMessage').text('1 record found:');
-    if(requests.length > 1)
+    else(requests.length > 1)
         $('#requestsMessage').text(requests.length + ' records found:');
 
     for(var i = 0 ; i < requests.length; ++i) {
 
         var request = requests[i];
 
-        var ETA = moment(requests[i].ETA).format('h:mm a');
-        var date = moment(requests[i].ETA).format('MMM D, Y');
-        var ATA = moment(requests[i].ATA).format('h:mm a');
-        var mapLink = "https://www.google.com/maps/search/?api=1&query=" + requests[i].address.location.latitude + ',' + requests[i].address.location.longitude;
+        var ETA = moment(request.ETA).format('h:mm a');
+        var date = moment(request.ETA).format('MMM D, Y');
+        var ATA = moment(request.ATA).format('h:mm a');
+        var mapLink = "https://www.google.com/maps/search/?api=1&query=" + request.address.location.latitude + ',' + request.address.location.longitude;
 
         var requestHTML = `
             <div class="request">
@@ -49,7 +51,7 @@ socket.on('previousRequests', function(requests) {
 
                 <div class="table">
                     <p class="paramter">Status: </p>
-                    <p class="content">${requests[i].statusInWords}</p>
+                    <p class="content">${request.statusInWords}</p>
                 </div>
 
                 <div class="table">
@@ -68,7 +70,7 @@ socket.on('previousRequests', function(requests) {
             <p class="content">${ATA}</p>
         </div>`;
 
-        if(requests[i].ATA) {
+        if(request.ATA) {
             requestHTML += ATAHTML;
         }
 
@@ -97,51 +99,6 @@ socket.on('previousRequests', function(requests) {
         requestHTML += `</div>`;
 
         $('#previousRequests').append(requestHTML);
-
-        // var currentRequest = document.createElement("div");
-        // currentRequest.className = "request";
-
-        // var full = document.createElement('p');
-        // full.textContent = "Address: ";
-        
-        // var full2 = document.createElement('p');
-        // full2.textContent = requests[i].address.full;
-
-        // var ref = document.createElement('h3');
-        // ref.textContent = "Ref: " + requests[i].ref;
-
-        // var ETA = document.createElement('p');
-        // ETA.textContent = "Estimated Pickup time: ";
-
-        // var ETA2 = document.createElement('p');
-        // var pickUpTime = moment(requests[i].ETA).format('h:mm a');
-        // ETA2.textContent = pickUpTime;
-
-        // var statusInWords = document.createElement('p');
-        // statusInWords.textContent = "Status: " + requests[i].statusInWords;
-
-        // var mapLink = document.createElement('a');
-        // mapLink.textContent = "Map location";
-        // mapLink.href = "https://www.google.com/maps/search/?api=1&query=" + requests[i].address.location.latitude + ',' + requests[i].address.location.longitude;
-        // mapLink.setAttribute('target', '_blank');
-        
-        // currentRequest.appendChild(ref);
-        // currentRequest.appendChild(full);
-        // currentRequest.appendChild(full2);
-        // currentRequest.appendChild(ETA);
-        // currentRequest.appendChild(ETA2);
-        // currentRequest.appendChild(statusInWords);
-        // currentRequest.appendChild(mapLink);
-
-        // currentRequest.style.borderBottom = "medium solid #8F4401";
-	    // currentRequest.style.borderTop = "medium solid #8F4401";
-	    // currentRequest.style.borderLeft = "medium solid #8F4401";
-	    // currentRequest.style.borderRight = "medium solid #8F4401";
-	    // currentRequest.style.paddingLeft = "0.5em";
-        // currentRequest.style.paddingBottom = "1em";
-        // currentRequest.style.marginTop = "1em";
-
-        // $('#previousRequests').append(currentRequest);
     }
 });
 

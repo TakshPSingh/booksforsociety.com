@@ -44,7 +44,7 @@ DriverSchema.methods.toJSON = function () {
   var driver = this;
   var driverObject = driver.toObject();
 
-  return _.pick(driverObject, ['_id', 'phone', 'vehicle', 'name']);
+  return _.pick(driverObject, ['_id', 'phone', 'vehicle', 'name', 'location']);
 };
 
 DriverSchema.statics.findByCode = function (code) {

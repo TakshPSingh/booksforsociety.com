@@ -7,6 +7,10 @@ var RequestSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		required: true
 	},
+	user_phone: {
+		type: Number,
+		required: true
+	},
 	// address
 	status: {
 		type: Number,
@@ -58,10 +62,19 @@ var RequestSchema = new mongoose.Schema({
 		},
 		subject: {
 			type: String,
+			enum: ['English','Math','Science','Computer Science','History','Geography','Political Science','Civics','Hindi','Other relevant subject'],
 			required: true
 		}
 	}]
 });
+
+RequestSchema.methods.toJSON = function () {
+	var request = this;
+	var requestObject = request.toObject();
+  
+	return _.omit(requestObject, ['driver_code']);
+	//this might need to be replaced with _.pick for speed if project scales enough
+  };
 
 RequestSchema.methods.completeRequest = function() {
 	var request = this;

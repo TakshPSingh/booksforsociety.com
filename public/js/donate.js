@@ -4,6 +4,19 @@ var loc;
 
 var socket = io();
 
+//CHECK IF REQUEST ALREADY EXISTS =>
+
+socket.emit('getRequestStatus', {token:token});
+
+socket.on('sendRequestStatus', function() {
+    $('#flowMessage').text('You already have a pending pickup request. Redirecting you to the tracking page.').show();
+    $('#donationForm').hide();
+
+    setTimeout(function() {
+      window.location = "track.html";
+    }, 2820);
+});
+
 //BOOKS =>
 
 $('#numberOfBooks').change(function() {
@@ -12,15 +25,22 @@ $('#numberOfBooks').change(function() {
 
     var bookFormHTML = ``;
 
-    $('.book').remove();
-    $('.grade').remove();
-    $('.bookAnnouncer').remove();
-
+    $('.book-container').remove(); // removing previous books selections
+    $('.book-container-last').remove();
+    
     for(var i = 0 ; i < numberOfBooks; ++i) {
         var bookid = "book" + i;
         var gradeid = "grade" + i;
 
+        var currentClass = "book-container";
+
+        if(i === numberOfBooks-1) {
+          currentClass = "book-container-last";
+        }    
+
         var bookSelectionMiniFormHTML = `
+            <div class="${currentClass}">
+
             <p class="bookAnnouncer">Book ${i+1} details:</p>
             <select id="${bookid}" class="book" required>
             <option value="" disabled selected>Subject</option>
@@ -44,6 +64,8 @@ $('#numberOfBooks').change(function() {
             <option value="9">9</option>
             <option value="10">10</option>
             </select>
+
+            </div>
         `;
 
         bookFormHTML += bookSelectionMiniFormHTML;
@@ -91,7 +113,9 @@ function displayLocationOnMap(loc) {
   var mapDOM = document.getElementById('map');
 
   var map = new google.maps.Map(mapDOM, {zoom: 15, center: loc});
-  var marker = new google.maps.Marker({position: loc, map: map});
+  var marker = new google.maps.Marker({position: loc, map: map, title: "Pickup location", label:{
+    text: "Pickup location"
+  }});
 
   $('#map').show();
 }

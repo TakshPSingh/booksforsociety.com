@@ -115,15 +115,15 @@ io.on('connection', (socket) => {
 			user = tempUser;
 			console.log("user",user); 
 			if(user.active)
-				return Promise.reject("user already has pending requests");	
-			
-			return locationServiceable(params.address.location);
+				return Promise.reject("user already has pending requests");
+			return locationServiceable(params.address.location, callback);
 		 }).then(() => {
 			var request = new Request(params);
 
 			request.status = 0;
 			request.statusInWords = "Unassigned";
 			request.user_ID = user._id;
+			request.user_phone = user.phone;
 			request.createdAt = new Date().getTime();
 
 			return Total.increase(7).then((total) => {
@@ -220,9 +220,3 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`Server is up on ${port}`);
 });
-
-var total = new Total({
-	reference: 1,
-	count: 2689
-});
-total.save();
