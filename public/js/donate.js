@@ -4,6 +4,13 @@ var loc;
 
 var socket = io();
 
+if(!token) {
+  $('#flowMessage').text('You need to sign in to donate. Redirecting you to the sign in page').show();
+  setTimeout(function() {
+    window.location = "sign.html";
+  }, 2200);
+}
+
 //CHECK IF REQUEST ALREADY EXISTS =>
 
 socket.emit('getRequestStatus', {token:token});
