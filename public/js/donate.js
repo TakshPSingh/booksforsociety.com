@@ -6,6 +6,8 @@ var socket = io();
 
 if(!token) {
   $('#flowMessage').text('You need to sign in to donate. Redirecting you to the sign in page').show();
+  $('#donationForm').hide();
+  
   setTimeout(function() {
     window.location = "sign.html";
   }, 2200);
