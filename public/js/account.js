@@ -22,7 +22,7 @@ socket.on('previousRequests', function(requests) {
         $('#requestsMessage').text('No donations yet. Why not begin today?');
     else if(requests.length === 1)
         $('#requestsMessage').text('1 record found:');
-    else(requests.length > 1)
+    else
         $('#requestsMessage').text(requests.length + ' records found:');
 
     for(var i = requests.length - 1; i >= 0 ; --i) {
