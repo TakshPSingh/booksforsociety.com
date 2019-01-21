@@ -84,6 +84,22 @@ nav {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1em;
+    text-align: center;
+}
+
+.collage {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.collage img {
+    margin-bottom: 1em;
+}
+
+#collage2 {
+    margin-left: 0.5em;
 }
 
 .stepInfo {
@@ -102,10 +118,21 @@ nav {
     font-size: 0.88em;
 }
 
+@media (max-width: 858px) {
+    .collage{
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 778px) {
+    .collage{
+        display: block;
+    }
+}
+
 @media (max-width: 540px) {
     .step {
         display:block;
-        text-align: center;
     }
 }
 

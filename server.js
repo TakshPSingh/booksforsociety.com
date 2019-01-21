@@ -6,7 +6,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || "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");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const publicPath = path.join(__dirname, './public');
 
@@ -220,3 +220,18 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`Server is up on ${port}`);
 });
+
+var driver = new Driver({
+		code: 81188118,
+		active: false,
+		vehicle: 'BATMOBILE',
+		name: 'Taksh Pratap Singh',
+		phone: 9716610606
+	});
+	driver.save().then(() => {
+		console.log("driver saved");
+	}).catch((err) => {
+		console.log("driver save failed", err);
+	}).catch((err) => {
+		console.log("Err:",err);
+	});

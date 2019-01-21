@@ -25,7 +25,7 @@ socket.on('previousRequests', function(requests) {
     else(requests.length > 1)
         $('#requestsMessage').text(requests.length + ' records found:');
 
-    for(var i = 0 ; i < requests.length; ++i) {
+    for(var i = requests.length - 1; i >= 0 ; --i) {
 
         var request = requests[i];
 
