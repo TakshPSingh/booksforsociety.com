@@ -11,7 +11,7 @@ var onlineDrivers = [];
 
 var assign = (request, user, callback) => { 
     var assignedDriver;
-    console.log("Entered assign function");
+    // console.log("Entered assign function");
 
     userLocation = request.address.location;
     activeDrivers = [];
@@ -37,7 +37,7 @@ var assign = (request, user, callback) => {
     }).then((durations) => {
         var index;
         var leastDuration = Number.MAX_SAFE_INTEGER;
-        console.log("durations",durations);
+        // console.log("durations",durations);
         for(var i = 0 ; i < durations.length; ++i) {
             if(durations[i] !== undefined && durations[i] < leastDuration) {
                 leastDuration = durations[i];
@@ -52,7 +52,7 @@ var assign = (request, user, callback) => {
         
         var currentTime = new Date().getTime();
         
-        console.log("least dur", leastDuration);
+        // console.log("least dur", leastDuration);
         request.ETA = currentTime + leastDuration;
         request.driver_code = activeDrivers[index].code;
         request.status = 1;
@@ -60,7 +60,7 @@ var assign = (request, user, callback) => {
 
         return request.save();
     }).then((request) => {
-        console.log("request", request);
+        // console.log("request", request);
         return Driver.findByCode(request.driver_code).then((driver) => {
             var newRequestNumber = {
                 request: request.ref
@@ -89,10 +89,10 @@ function calculateETA (driver) {
     var distancematrixURL = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat},${lng}&destinations=${userLocation.latitude},${userLocation.longitude}&departure_time=now&key=AIzaSyCk5aSoagjsGq9bHyOFlNKFaI5Evy1wDnY`;
     return axios.get(distancematrixURL).then((response) => {
         if(response.data.rows[0].elements[0].status == "NOT_FOUND") {
-            console.log("NOT_FOUND");
+            // console.log("NOT_FOUND");
             return Promise.resolve(undefined);
         }
-        console.log("time taken: ", response.data.rows[0].elements[0].duration_in_traffic.value * 1000);
+        // console.log("time taken: ", response.data.rows[0].elements[0].duration_in_traffic.value * 1000);
         return Promise.resolve(response.data.rows[0].elements[0].duration_in_traffic.value * 1000);
     });
 };
@@ -112,7 +112,7 @@ function findLeastETA(callback) {
 function findETA (driver) {
     var requestRef = driver.requests[0].request;
     return Request.findByRef(requestRef).then((request) => {
-        console.log("found busy driver request");
+        // console.log("found busy driver request");
         return Promise.resolve(request.ETA);
     })
 }

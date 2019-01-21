@@ -101,7 +101,7 @@ io.on('connection', (socket) => {
 			console.log("user found");
 			return user.findPreviousRequests();
 		 }).then((previousRequests) => {
-			console.log("Previous requests found:",previousRequests);
+			//console.log("Previous requests found:",previousRequests);
 			socket.emit('previousRequests',previousRequests);
 		 }).catch((err) => {
 			console.log("Err:",err);
@@ -213,7 +213,7 @@ io.on('connection', (socket) => {
 			callback();
 		}).catch((err) => {
 			console.log("Err:", err);
-		}); 
+		});
 	});
 });
 
