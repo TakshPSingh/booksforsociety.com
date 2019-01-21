@@ -220,18 +220,3 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`Server is up on ${port}`);
 });
-
-var driver = new Driver({
-		code: 81188118,
-		active: false,
-		vehicle: 'BATMOBILE',
-		name: 'Taksh Pratap Singh',
-		phone: 9716610606
-	});
-	driver.save().then(() => {
-		console.log("driver saved");
-	}).catch((err) => {
-		console.log("driver save failed", err);
-	}).catch((err) => {
-		console.log("Err:",err);
-	});
