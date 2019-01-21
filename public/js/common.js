@@ -32,6 +32,6 @@ $('#track').click(function() {
     window.location = "track.html";
 });
 
-// $('#about').click(function() {
-//     window.location = "about.html";
-// });
+$('#about').click(function() {
+    window.location = "index.html#mission";
+});

@@ -137,6 +137,11 @@ function displayRequestDetails(request, driver) {
         }
     }
 
+    requestHTML += `<div class="table">
+    <a class="paramter loc" href="tel:+919716610606" target="_blank">
+        Call Support
+    </a>
+</div>`
     requestHTML += `</div>`;
 
     $('#details').append(requestHTML);

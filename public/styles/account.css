@@ -176,3 +176,22 @@ input[type=submit]{
         left: 0%;
     }
 }
+
+/* FOOTER => */
+
+#footer{
+	font-size:3vh;
+    width:90%;
+    position: relative;
+    left: 5%;
+    right: 5%;
+    margin: 5em 0 1em 0;;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: gray;
+}
+
+#footerRow {
+    display: flex;
+    justify-content: space-between;margin-bottom : 0.5em;
+}

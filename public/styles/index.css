@@ -63,4 +63,68 @@ nav {
     }
 }
 
+/* MAIN CONTENT => */
 
+#hompage {
+    margin: 6vh 0 10vh 0;
+    width:90%;
+    position: relative;
+    left: 5%;
+}
+
+#tagline {
+    width : 100%;
+    text-align: center;
+    color: navy;
+    font-family: futura;
+    font-style: oblique;
+}
+
+.step {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.stepInfo {
+    margin-right: 1em;
+}
+
+#missionHeading{
+    color: navy;
+}
+
+#mission {
+    margin-top: 3em;
+}
+
+#missionText {
+    font-size: 0.88em;
+}
+
+@media (max-width: 540px) {
+    .step {
+        display:block;
+        text-align: center;
+    }
+}
+
+/* FOOTER => */
+
+#footer{
+	font-size:3vh;
+    width:90%;
+    position: relative;
+    left: 5%;
+    right: 5%;
+    margin: 5em 0 1em 0;;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: gray;
+}
+
+#footerRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom : 0.5em;
+}
