@@ -118,6 +118,12 @@ nav {
     font-size: 0.88em;
 }
 
+.child-privacy {
+    font-size: 0.5em;
+    text-align: center;
+    margin-top: 0;
+}
+
 @media (max-width: 858px) {
     .collage{
         justify-content: space-between;
