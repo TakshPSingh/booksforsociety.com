@@ -5,6 +5,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const sgMail = require('@sendgrid/mail');
+const sslRedirect = require('heroku-ssl-redirect');
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -28,6 +29,7 @@ const port = process.env.PORT;
 
 var app = express();
 app.use(express.static(publicPath));
+app.use(sslRedirect());
 
 var server = http.createServer(app);
 var io = socketIO(server);
