@@ -5,13 +5,13 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const sgMail = require('@sendgrid/mail');
-const sslRedirect = require('heroku-ssl-redirect');
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const publicPath = path.join(__dirname, './public');
 
 var {mongoose} = require('./db/mongoose');
+const sslRedirect = require('./utils/redirect-to-https');
 const {validateEmail, validateName, validatePassword} = require('./utils/validation');
 const {generateLocationMessage} = require('./utils/location-message');
 const {authenticate} = require('./utils/authenticate');
@@ -29,7 +29,7 @@ const port = process.env.PORT;
 
 var app = express();
 
-app.use(sslRedirect());
+app.use(sslRedirect()); // forcing HTTPS
 app.use(express.static(publicPath));
 
 var server = http.createServer(app);
