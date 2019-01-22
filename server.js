@@ -28,8 +28,9 @@ const {Total} = require('./models/total');
 const port = process.env.PORT;
 
 var app = express();
-app.use(express.static(publicPath));
+
 app.use(sslRedirect());
+app.use(express.static(publicPath));
 
 var server = http.createServer(app);
 var io = socketIO(server);
