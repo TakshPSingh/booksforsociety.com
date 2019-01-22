@@ -13,7 +13,7 @@ function beginTracking() {
 }
 
 socket.on('noActiveRequest', function() {
-    $('#message').html('You have no active requests to track right now. To view previous requests, <a href="account.html">click here.</a>');
+    $('#message').html('You have no active requests to track right now. To view previous requests, <a href="account">click here.</a>');
     $('#map').empty();
     $('#details').empty();
 });

@@ -9,29 +9,29 @@ var token = localStorage.getItem('token');
 
 if(token) {
     $('#account').text('Account').click(function() {
-        window.location = "account.html";
+        window.location = "account";
     });
 }
 else {
     $('#account').click(function() {
-        window.location = "sign.html";
+        window.location = "sign";
     });
 }
 
 //Setting Nav bar links + banner link
 
 $('#banner').click(function() {
-    window.location = "index.html";
+    window.location = "index";
 });
 
 $('#donate').click(function() {
-    window.location = "donate.html";
+    window.location = "donate";
 });
 
 $('#track').click(function() {
-    window.location = "track.html";
+    window.location = "track";
 });
 
 $('#about').click(function() {
-    window.location = "index.html#mission";
+    window.location = "index#mission";
 });

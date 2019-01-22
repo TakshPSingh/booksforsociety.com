@@ -30,7 +30,9 @@ const port = process.env.PORT;
 var app = express();
 
 app.use(sslRedirect()); // forcing HTTPS
-app.use(express.static(publicPath));
+app.use(express.static(publicPath, { //removing .html file endings
+    extensions: ['html'],
+}));
 
 var server = http.createServer(app);
 var io = socketIO(server);

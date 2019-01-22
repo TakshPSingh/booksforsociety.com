@@ -9,7 +9,7 @@ if(!token) {
   $('#donationForm').hide();
   
   setTimeout(function() {
-    window.location = "sign.html";
+    window.location = "sign";
   }, 2200);
 }
 
@@ -22,7 +22,7 @@ socket.on('sendRequestStatus', function() {
     $('#donationForm').hide();
 
     setTimeout(function() {
-      window.location = "track.html";
+      window.location = "track";
     }, 2820);
 });
 
@@ -173,7 +173,7 @@ $('#donationForm').on('submit', function(e) {
         $('#flowMessage').text('Congratulation! Your pickup request has been accepted. Redirecting you to the tracking page.').show();
         
         setTimeout(function() {
-          window.location = "track.html";
+          window.location = "track";
         }, 4000);
       } 
       else {

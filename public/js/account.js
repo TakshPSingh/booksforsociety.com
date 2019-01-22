@@ -3,7 +3,7 @@
 var socket = io();
 
 if(!token)
-    window.location = "sign.html";
+    window.location = "sign";
 
 //socket.io events =>
 
@@ -134,6 +134,6 @@ $('#signOut').click(function() {
     $('#message').text('You have been signed out. Redirecting...')
     
     setTimeout(function() {
-        window.location = "sign.html";
+        window.location = "sign";
     }, 2500);
 });

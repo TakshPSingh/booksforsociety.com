@@ -148,7 +148,7 @@ $('#signOut').click(function() {
 });
 
 socket.on('driverClosed', function() {
-    window.location = "driverSignedOut.html";
+    window.location = "driverSignedOut";
 });
 
 

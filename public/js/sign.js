@@ -3,7 +3,7 @@ var socket = io();
 if(token) {
     $('#message').text('You are already logged in. Redirecting you to the home page.');
 	setTimeout(function(){
-		window.location = "index.html";
+		window.location = "index";
 	}, 2500);
 }
 
@@ -43,7 +43,7 @@ socket.on('token', function(tokenFromServer) {
 	$('#message').text('Welcome back. Redirecting you to the homepage.');
 	$('#signInButton').val('Welcome.').prop('disabled',true);
 	setTimeout(function(){
-		window.location = "index.html";
+		window.location = "index";
 	}, 2500);
 });
 
@@ -79,7 +79,7 @@ socket.on('registered', function(tokenFromServer) {
 		localStorage.clear();
 		token=tokenFromServer
 		localStorage.setItem('token',token);
-		window.location = "index.html";
+		window.location = "index";
 	}, 2500);
 });
 
