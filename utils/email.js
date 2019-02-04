@@ -32,6 +32,9 @@ var emailPickupConfirmation = (user, request, driver, sgMail) => {
             <li>
                 Expected Pickup Time: ${ETAInWords}
             </li>
+            <li>
+                Destination NGO: ${request.NGO}
+            </li>
        </ul>
         <p>
         Congratulations on taking this significant step against fighting illiteracy!</p><p> Although you may not realize it, but your donation truly has the potential to change a kid's life.
@@ -72,7 +75,7 @@ var emailAssignmentConfirmation = (user, request, driver, sgMail) => {
 
         <p>Please keep your books ready at <strong>${timeInWords}</strong>.</p>
         <p>
-        Thank you for this donation. We look forward to receiving your books.
+        Thank you for this donation. We look forward to receiving your books and sending them to ${request.NGO}.
         </p>
         <p>
         Regards,</p>
