@@ -12,7 +12,7 @@ var emailPickupConfirmation = (user, request, driver, sgMail) => {
             name: 'booksforsociety.com',
             email: 'automatic@booksforsociety.com'
         },
-        replyTo: 'taksh001@gmail.com',
+        replyTo: 'email@booksforsociety.com',
         subject: `Pickup confirmation - Ref #${ref}`,
         text: "Your books were pickep up!",
         html: `<p>Dear ${user.name},</p>
@@ -66,7 +66,7 @@ var emailAssignmentConfirmation = (user, request, driver, sgMail) => {
             name: 'booksforsociety.com',
             email: 'automatic@booksforsociety.com'
         },
-        replyTo: 'taksh001@gmail.com',
+        replyTo: 'email@booksforsociety.com',
         subject: `Pickup Assigned - Ref #${ref}`,
         text: "Driver assigned for picking up your books",
         html: `<p>Dear ${user.name},</p>
@@ -100,7 +100,7 @@ var emailToken = (user, sgMail) => {
             name: 'booksforsociety.com',
             email: 'tokens@booksforsociety.com'
         },
-        replyTo: 'taksh001@gmail.com',
+        replyTo: 'email@booksforsociety.com',
         subject: 'Account Recovery Request',
         html: `<p>Dear ${user.name},</p>
         
