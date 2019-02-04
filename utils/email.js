@@ -111,7 +111,7 @@ var emailToken = (user, sgMail) => {
         
         <p>If you did not make this request, do not worry. Your account is safe; no one can take control of your account unless they have this token.<p>
         
-        <p>The contents of this email are sensitive. Do not share the contents of this email with anyone.</p>
+        <p>The contents of this email are sensitive. Do not share these with anyone.</p>
 
         <p>Regards,</p>
         <p>Taksh Pratap Singh</p>
