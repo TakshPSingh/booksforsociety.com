@@ -170,7 +170,7 @@ $('#donationForm').on('submit', function(e) {
 
       if(done) {
         $('#donationForm').hide();
-        $('#flowMessage').text('Congratulation! Your pickup request has been accepted. Redirecting you to the tracking page.').show();
+        $('#flowMessage').text('Congratulations! Your pickup request has been accepted. Redirecting you to the tracking page.').show();
         
         setTimeout(function() {
           window.location = "track";
