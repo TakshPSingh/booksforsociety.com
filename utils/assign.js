@@ -3,6 +3,7 @@ const moment = require('moment-timezone');
 
 var {Driver} = require('../models/driver');
 var {Request} = require('../models/request');
+var {NGO} = require('../models/ngo');
 var {User} = require('../models/user'); //redundant can remove, but just don't feel like today
 
 var userLocation;
@@ -72,14 +73,40 @@ var assign = (request, user, callback) => {
     }).then((driver) => {
         assignedDriver = driver;
 
+        return assignNGO(request);
+    }).then((request) => {
         user.requests.push({request: request.ref});
         user.active = true;
         
-        return user.save();
+        return user.save();  
     }).then((user) => {
         return Promise.resolve(assignedDriver);
     });
 };
+
+function assignNGO (request) {
+    var mostDemandSumNGO;
+    var maxDemand = Number.MIN_SAFE_INTEGER;
+
+    return NGO.find().then((ngos) => {
+        for(var i = 0; i < ngos.length; ++i) {
+            var ngo = ngos[i];
+            var demandSum = 0;
+
+            for(var j = 0 ; j < ngo.demand.length; ++j) {
+                demandSum += ngo.demand[j].numberOfBooksRequired;
+            }
+
+            if(demandSum > maxDemand) {
+                maxDemand = demandSum;
+                mostDemandSumNGO = ngo.name;
+            }
+        }
+
+        request.NGO = mostDemandSumNGO;
+        return request.save();
+    });
+}
 
 function calculateETA (driver) {
     var location = driver.location;

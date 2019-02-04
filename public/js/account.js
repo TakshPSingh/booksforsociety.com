@@ -70,6 +70,11 @@ socket.on('previousRequests', function(requests) {
             <p class="content">${ATA}</p>
         </div>`;
 
+        var destinationHTML = `<div class="table">
+            <p class="paramter">Destination NGO: </p>
+            <p class="content">${request.NGO}</p>
+        </div>`;
+
         if(request.ATA) {
             requestHTML += ATAHTML;
         }
@@ -94,6 +99,10 @@ socket.on('previousRequests', function(requests) {
 
                 requestHTML += bookHTMl;
             }
+        }
+
+        if(request.NGO) {
+            requestHTML += destinationHTML;
         }
 
         requestHTML += `</div>`;

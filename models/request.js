@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 const validator = require('validator');
 const _ = require('lodash');
 
+const {NGO} = require('./ngo');
+
 var RequestSchema = new mongoose.Schema({
 	user_ID: {
 		type: mongoose.Schema.Types.ObjectId,
@@ -36,6 +38,9 @@ var RequestSchema = new mongoose.Schema({
 	ref: {
 		type: Number,
 		required: true
+	},
+	NGO: {
+		type: String
 	},
 	address: {
 		full: {
@@ -81,7 +86,18 @@ RequestSchema.methods.completeRequest = function() {
 	request.ATA = new Date().getTime();
 	request.status = 2;
 	request.statusInWords = 'Picked up';
-	return request.save();
+	return NGO.findByName(request.NGO).then((ngo) => {
+		console.log("NGO found");
+
+		for(var i = 0; i < request.books.length; ++i) {
+			var grade = request.books[i].grade;
+			ngo.demand[grade-6].numberOfBooksRequired--;
+		}//shift this to ngo.js if you have time
+		return ngo.save();
+	}).then((ngo) => {
+		console.log("About to save request after decreasing NGO demand");
+		return request.save();
+	});
 };
 
 RequestSchema.statics.findByRef = function(ref) {

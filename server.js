@@ -23,6 +23,7 @@ const {emailPickupConfirmation, emailAssignmentConfirmation, emailToken} = requi
 const {User} = require('./models/user');
 const {Driver} = require('./models/driver');
 const {Request} = require('./models/request');
+const {NGO} = require('./models/ngo');
 const {Total} = require('./models/total');
 
 const port = process.env.PORT;
@@ -225,3 +226,51 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`Server is up on ${port}`);
 });
+
+var ngo = new NGO({
+	name: "BRM Memorial Charitable Trust, Dwarka, Delhi",
+	demand: [{
+		grade: 6,
+		numberOfBooksRequired: 10
+	}, {
+		grade: 7,
+		numberOfBooksRequired: 10
+	}, {
+		grade: 8,
+		numberOfBooksRequired: 10
+	}, {
+		grade: 9,
+		numberOfBooksRequired: 10
+	}, {
+		grade: 10,
+		numberOfBooksRequired: 10
+	}]
+});
+
+ngo.save().then((ngo) => {
+	console.log("ngo saved:",ngo);
+})
+
+var ngo1 = new NGO({
+	name: "NEM School, Gejha",
+	demand: [{
+		grade: 6,
+		numberOfBooksRequired: 50
+	}, {
+		grade: 7,
+		numberOfBooksRequired: 50
+	}, {
+		grade: 8,
+		numberOfBooksRequired: 50
+	}, {
+		grade: 9,
+		numberOfBooksRequired: 50
+	}, {
+		grade: 10,
+		numberOfBooksRequired: 50
+	}]
+});
+
+ngo1.save().then((ngo) => {
+	console.log("ngo1 saved:",ngo);
+})

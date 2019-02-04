@@ -138,10 +138,16 @@ function displayRequestDetails(request, driver) {
     }
 
     requestHTML += `<div class="table">
-    <a class="paramter loc" href="tel:+919716610606" target="_blank">
-        Call Support
-    </a>
-</div>`
+            <p class="paramter">Destination NGO: </p>
+            <p class="content">${request.NGO}</p>
+        </div>`;
+
+    requestHTML += `<div class="table">
+        <a class="paramter loc" href="tel:+919716610606" target="_blank">
+            Call Support
+        </a>
+    </div>`
+    
     requestHTML += `</div>`;
 
     $('#details').append(requestHTML);
