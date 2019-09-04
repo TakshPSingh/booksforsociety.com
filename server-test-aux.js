@@ -1,6 +1,6 @@
 //All user and driver test PASSING
 //Request test PASSING
-//previous request fetch finally PASSING thanks to Promise.all(). Thank you god for this amazing function :)
+//previous request fetch finally PASSING thanks to Promise.all() :)
 const path = require('path');
 const http = require('http');
 const express = require('express');
