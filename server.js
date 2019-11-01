@@ -186,7 +186,7 @@ io.on('connection', (socket) => {
 	   Driver.driverLocationUpdate(params);	 	
 	});
 
-	socket.on('driverRequests', (params) => { // add phone number if the app flies off and also potentially add name too for better user experience but ony if the app works really really well
+	socket.on('driverRequests', (params) => { // More info can be added here potentially
 		Driver.findByCode(params.code).then((driver) => {
 			return driver.findRequests();
 		}).then((requests) => {
