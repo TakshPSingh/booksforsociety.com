@@ -20,7 +20,7 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
-    "moment-timezone": "^0.5.23",
+    "moment-timezone": "^0.5.35",
     "mongodb": "^3.1.9",
     "mongoose": "^5.3.12",
     "socket.io": "^2.1.1",
